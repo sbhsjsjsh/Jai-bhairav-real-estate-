@@ -1,0 +1,6 @@
+{
+  "name": "Jai Bhairav Real Estate Group",
+  "description": "Buy open land and residential plots on Tonk Road, Vatika and Shivdaspura, Jaipur with Jai Bhairav Real Estate Group.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
