@@ -10,6 +10,15 @@ import { cn } from '@/lib/utils';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: 'Properties', href: '#properties' },
@@ -19,24 +28,40 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+      scrolled ? "py-0" : "py-2"
+    )}>
+      <div className={cn(
+        "absolute inset-0 transition-all duration-500",
+        scrolled 
+          ? "bg-white/90 backdrop-blur-xl border-b border-slate-200/50 shadow-lg" 
+          : "bg-transparent"
+      )} />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="flex justify-between items-center h-20">
           {/* Zone 1: Brand title */}
           <div className="flex-shrink-0 flex items-center">
-            <span className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-              <span className="w-8 h-8 bg-slate-900 text-white rounded flex items-center justify-center text-xs font-black">JB</span>
-              Jai Bhairav
-            </span>
+            <a href="/" className="group flex items-center gap-3">
+              <div className="relative w-10 h-10 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl rotate-3 group-hover:rotate-6 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-slate-800 to-slate-600 rounded-xl -rotate-3 group-hover:-rotate-0 transition-transform" />
+                <span className="relative text-white text-sm font-black tracking-tighter">JB</span>
+              </div>
+              <span className="text-xl font-bold tracking-tight text-slate-900">
+                Jai Bhairav
+              </span>
+            </a>
           </div>
 
           {/* Zone 2: Nav links */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+                className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all"
               >
                 {link.name}
               </a>
@@ -47,9 +72,10 @@ const Navbar = () => {
           <div className="hidden md:flex items-center">
             <a
               href="#contact"
-              className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all active:scale-95"
+              className="relative group overflow-hidden bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all active:scale-95"
             >
-              Get in Touch
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-slate-900 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="relative">Get in Touch</span>
             </a>
           </div>
 
@@ -57,9 +83,10 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-slate-600 hover:text-slate-900 p-2"
+              className="text-slate-600 hover:text-slate-900 p-2 relative"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <div className={cn("absolute inset-0 bg-slate-100 rounded-full scale-0 transition-transform", isOpen && "scale-100")} />
+              {isOpen ? <X className="relative w-6 h-6" /> : <Menu className="relative w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -69,27 +96,27 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-slate-200 overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="md:hidden absolute top-20 left-4 right-4 bg-white/95 backdrop-blur-2xl rounded-3xl border border-slate-200 shadow-2xl overflow-hidden"
           >
-            <div className="px-4 pt-2 pb-6 space-y-2">
+            <div className="px-6 py-8 space-y-4">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-4 text-base font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-md"
+                  className="block px-4 py-3 text-lg font-semibold text-slate-900 hover:bg-slate-50 rounded-2xl transition-colors"
                 >
                   {link.name}
                 </a>
               ))}
-              <div className="pt-4 px-3">
+              <div className="pt-4">
                 <a
                   href="#contact"
                   onClick={() => setIsOpen(false)}
-                  className="block w-full text-center bg-slate-900 text-white px-4 py-3 rounded-lg text-base font-medium"
+                  className="block w-full text-center bg-gradient-to-r from-slate-900 to-slate-800 text-white py-4 rounded-2xl text-lg font-bold shadow-lg"
                 >
                   Get in Touch
                 </a>
@@ -104,56 +131,66 @@ const Navbar = () => {
 
 const Hero = () => {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+    <section className="relative pt-40 pb-24 lg:pt-56 lg:pb-40 overflow-hidden">
+      {/* Mesh Gradient Background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-indigo-200/20 blur-[120px] rounded-full animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-amber-100/30 blur-[120px] rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-50 blur-[120px] rounded-full" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-widest mb-6"
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-slate-900" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/5 text-slate-900 text-xs font-bold uppercase tracking-widest mb-8 border border-slate-900/10">
+              <div className="w-2 h-2 rounded-full bg-slate-900 animate-pulse" />
               Jai Bhairav Real Estate Group
-            </motion.div>
-            <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
-              Premium Land Plots <br />
-              <span className="text-slate-500">in Jaipur City.</span>
+            </div>
+            
+            <h1 className="text-6xl lg:text-8xl font-black tracking-tight text-slate-900 leading-[1.05] mb-8">
+              Own Your Piece of <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-indigo-900 to-slate-900 animate-gradient-x">Jaipur&apos;s Future.</span>
             </h1>
-            <p className="mt-6 text-xl text-slate-600 max-w-xl leading-relaxed">
-              Jai Bhairav Real Estate Group specializes in open land and residential plots on Tonk Road, Shivdaspura, and Vatika. Secure your future today.
+            
+            <p className="text-xl lg:text-2xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-12">
+              Exclusive residential and commercial plots on Tonk Road, Shivdaspura, and Vatika. Premium locations for a lifetime of growth.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <a
                 href="#properties"
-                className="bg-slate-900 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-slate-800 transition-all inline-flex items-center justify-center group"
+                className="w-full sm:w-auto bg-slate-900 text-white px-10 py-5 rounded-2xl text-lg font-bold hover:shadow-2xl hover:shadow-slate-900/20 transition-all flex items-center justify-center group"
               >
-                View Listings
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Browse Plots
+                <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="#contact"
-                className="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-slate-50 transition-all text-center"
+                href="#services"
+                className="w-full sm:w-auto bg-white text-slate-900 border-2 border-slate-100 px-10 py-5 rounded-2xl text-lg font-bold hover:bg-slate-50 transition-all text-center"
               >
-                Our Services
+                Our Expertise
               </a>
             </div>
           </motion.div>
         </div>
       </div>
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 -z-10 w-1/2 h-full hidden lg:block">
-        <div className="absolute inset-0 bg-slate-100 rounded-bl-[120px]" />
-        <div className="absolute bottom-20 left-20 w-64 h-64 bg-white shadow-2xl rounded-3xl border border-slate-100 p-8 flex flex-col justify-end">
-          <div className="text-4xl font-bold text-slate-900">500+</div>
-          <div className="text-slate-500 font-medium">Properties Delivered</div>
+
+      {/* Decorative Stats Floating */}
+      <motion.div 
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="absolute top-1/4 right-0 hidden xl:block translate-x-1/2"
+      >
+        <div className="bg-white/40 backdrop-blur-lg p-8 rounded-[40px] border border-white/50 shadow-2xl">
+          <div className="text-5xl font-black text-slate-900 mb-2 tracking-tighter">500+</div>
+          <div className="text-slate-500 font-bold uppercase tracking-widest text-xs">Plots Delivered</div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
@@ -313,17 +350,51 @@ const ContactSection = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t border-slate-200 py-12 pb-32 md:pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-8 md:mb-0">
-            <span className="text-2xl font-bold text-slate-900">Jai Bhairav</span>
-            <p className="mt-2 text-slate-500 text-sm">© 2026 Jai Bhairav Real Estate Group. All rights reserved.</p>
+    <footer className="relative bg-slate-950 text-white py-24 pb-32 md:pb-24 overflow-hidden">
+      {/* Background Gradients */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-600 blur-[120px] rounded-full" />
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-slate-800 blur-[120px] rounded-full" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div className="col-span-1 lg:col-span-2">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-white text-slate-950 rounded-xl flex items-center justify-center font-black text-lg">JB</div>
+              <span className="text-2xl font-black tracking-tight">Jai Bhairav</span>
+            </div>
+            <p className="text-slate-400 text-lg max-w-md leading-relaxed mb-8">
+              Trusted land developers specializing in high-growth residential and commercial plots along the Jaipur Tonk Road corridor.
+            </p>
           </div>
-          <div className="flex space-x-8">
-            <a href="#" className="text-slate-500 hover:text-slate-900 text-sm">Privacy Policy</a>
-            <a href="#" className="text-slate-500 hover:text-slate-900 text-sm">Terms of Service</a>
-            <a href="#" className="text-slate-500 hover:text-slate-900 text-sm">Sitemap</a>
+          
+          <div>
+            <h4 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6">Quick Links</h4>
+            <ul className="space-y-4 text-slate-300 font-medium">
+              <li><a href="#properties" className="hover:text-white transition-colors">Featured Plots</a></li>
+              <li><a href="#services" className="hover:text-white transition-colors">Our Services</a></li>
+              <li><a href="#about" className="hover:text-white transition-colors">About Group</a></li>
+              <li><a href="#contact" className="hover:text-white transition-colors">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6">Contact</h4>
+            <ul className="space-y-4 text-slate-300 font-medium">
+              <li className="flex items-center gap-3"><Phone className="w-4 h-4" /> +91 78498 61947</li>
+              <li className="flex items-center gap-3"><Mail className="w-4 h-4" /> contact@jaibhairav.com</li>
+              <li className="flex items-center gap-3"><MapPin className="w-4 h-4" /> Jaipur, Rajasthan</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
+          <p className="text-slate-500 text-sm font-medium">© 2026 Jai Bhairav Real Estate Group. Crafted for Excellence.</p>
+          <div className="flex items-center gap-8 text-sm font-medium text-slate-500">
+            <a href="#" className="hover:text-white transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms</a>
+            <a href="#" className="hover:text-white transition-colors">Sitemap</a>
           </div>
         </div>
       </div>
