@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { Menu, X, Phone, Mail, MapPin, Bed, Bath, Square, ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -43,16 +44,16 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Zone 1: Brand title */}
           <div className="flex-shrink-0 flex items-center">
-            <a href="/" className="group flex items-center gap-3">
+            <Link href="/" className="group flex items-center gap-3">
               <div className="relative w-10 h-10 flex items-center justify-center">
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl rotate-3 group-hover:rotate-6 transition-transform" />
                 <div className="absolute inset-0 bg-gradient-to-tr from-slate-800 to-slate-600 rounded-xl -rotate-3 group-hover:-rotate-0 transition-transform" />
-                <span className="relative text-white text-sm font-black tracking-tighter">JB</span>
+                <span className="relative text-white text-sm font-black tracking-tighter">B</span>
               </div>
               <span className="text-xl font-bold tracking-tight text-slate-900">
-                Jai Bhairav
+                Bhairav
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Zone 2: Nav links */}
@@ -148,7 +149,7 @@ const Hero = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/5 text-slate-900 text-xs font-bold uppercase tracking-widest mb-8 border border-slate-900/10">
               <div className="w-2 h-2 rounded-full bg-slate-900 animate-pulse" />
-              Jai Bhairav Real Estate Group
+              Bhairav Real Estate Group
             </div>
             
             <h1 className="text-6xl lg:text-8xl font-black tracking-tight text-slate-900 leading-[1.05] mb-8">
@@ -269,7 +270,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Email Us</p>
-                  <p className="text-lg font-bold text-slate-900">contact@jaibhairav.com</p>
+                  <p className="text-lg font-bold text-slate-900">contact@bhairav.com</p>
                 </div>
               </div>
             </div>
@@ -361,8 +362,8 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-white text-slate-950 rounded-xl flex items-center justify-center font-black text-lg">JB</div>
-              <span className="text-2xl font-black tracking-tight">Jai Bhairav</span>
+              <div className="w-12 h-12 bg-white text-slate-950 rounded-xl flex items-center justify-center font-black text-lg">B</div>
+              <span className="text-2xl font-black tracking-tight">Bhairav</span>
             </div>
             <p className="text-slate-400 text-lg max-w-md leading-relaxed mb-8">
               Trusted land developers specializing in high-growth residential and commercial plots along the Jaipur Tonk Road corridor.
@@ -383,14 +384,14 @@ const Footer = () => {
             <h4 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-6">Contact</h4>
             <ul className="space-y-4 text-slate-300 font-medium">
               <li className="flex items-center gap-3"><Phone className="w-4 h-4" /> +91 78498 61947</li>
-              <li className="flex items-center gap-3"><Mail className="w-4 h-4" /> contact@jaibhairav.com</li>
+              <li className="flex items-center gap-3"><Mail className="w-4 h-4" /> contact@bhairav.com</li>
               <li className="flex items-center gap-3"><MapPin className="w-4 h-4" /> Jaipur, Rajasthan</li>
             </ul>
           </div>
         </div>
 
         <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-slate-500 text-sm font-medium">© 2026 Jai Bhairav Real Estate Group. Crafted for Excellence.</p>
+          <p className="text-slate-500 text-sm font-medium">© 2026 Bhairav Real Estate Group. Crafted for Excellence.</p>
           <div className="flex items-center gap-8 text-sm font-medium text-slate-500">
             <a href="#" className="hover:text-white transition-colors">Privacy</a>
             <a href="#" className="hover:text-white transition-colors">Terms</a>
@@ -404,7 +405,7 @@ const Footer = () => {
 
 const FloatingCTA = () => {
   const phoneNumber = "917849861947";
-  const whatsappMessage = encodeURIComponent("Hello Jai Bhairav Real Estate Group, I'm interested in your properties.");
+  const whatsappMessage = encodeURIComponent("Hello Bhairav Real Estate Group, I'm interested in your properties.");
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
   const callUrl = `tel:+${phoneNumber}`;
 
@@ -528,7 +529,7 @@ export default function RealEstateApp() {
                   <span className="text-slate-400">Land Development.</span>
                 </h2>
                 <p className="text-slate-400 text-lg mb-10 leading-relaxed">
-                  Jai Bhairav Real Estate Group is the leading name for land plots in the Tonk Road corridor. From Shivdaspura to Vatika, we help investors and homeowners find high-growth land opportunities.
+                  Bhairav Real Estate Group is the leading name for land plots in the Tonk Road corridor. From Shivdaspura to Vatika, we help investors and homeowners find high-growth land opportunities.
                 </p>
                 <div className="grid grid-cols-2 gap-8">
                   <div>
@@ -543,7 +544,7 @@ export default function RealEstateApp() {
               </div>
               <div className="relative">
                 <div className="aspect-[4/3] bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 flex items-center justify-center">
-                   <div className="text-slate-600 text-6xl font-bold">JB</div>
+                   <div className="text-slate-600 text-6xl font-bold">B</div>
                 </div>
                 <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl border border-slate-100 hidden sm:block">
                   <div className="text-slate-900 font-bold mb-1">Market Leaders</div>

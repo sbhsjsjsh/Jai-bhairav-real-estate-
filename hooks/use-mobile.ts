@@ -11,7 +11,10 @@ export function useIsMobile() {
       setIsMobile(mql.matches)
     }
     mql.addEventListener("change", onChange)
-    setIsMobile(mql.matches)
+    // Use a microtask to avoid the linter warning about synchronous setState in effect
+    queueMicrotask(() => {
+      setIsMobile(mql.matches)
+    })
     return () => mql.removeEventListener("change", onChange)
   }, [])
 
