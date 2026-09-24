@@ -463,7 +463,7 @@ export default function RealEstateApp() {
               <div>
                 <h2 className="text-4xl font-bold text-slate-900">Featured Properties</h2>
                 <p className="mt-4 text-slate-500 max-w-lg">
-                  Hand-picked premium listings from the most sought-after locations across India.
+                  Hand-picked premium listings from the most sought-after locations across Jaipur.
                 </p>
               </div>
               <div className="mt-6 md:mt-0">
