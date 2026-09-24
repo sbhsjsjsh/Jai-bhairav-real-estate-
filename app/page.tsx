@@ -210,9 +210,9 @@ const ContactSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-start">
           <div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Let's Discuss Your Next Move</h2>
+            <h2 className="text-4xl font-bold text-slate-900 mb-6">Let&apos;s Discuss Your Next Move</h2>
             <p className="text-lg text-slate-600 mb-10 leading-relaxed">
-              Whether you're looking to buy, sell, or invest, our team of experts is ready to guide you through every step of the journey.
+              Whether you&apos;re looking to buy, sell, or invest, our team of experts is ready to guide you through every step of the journey.
             </p>
             
             <div className="space-y-6">
